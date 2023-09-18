@@ -21,12 +21,26 @@ public class Enigma{
 
     public String decrypt(String message){        
         //TODO
+        // rotate inner counterclockwise
+        // find the letter in the outer line
+        // align with middle
+        // find with outer again
+        // align with inner
+        //for look length = lenght of string 
+
     }
 
 
     
     public String encrypt(String message){
         //TODO
+
+        // find letter in inner rotor
+        // align with outer rotor
+        // find OR cool w middle rotor
+        // align with outer rotor
+        // encrypted letter
+        // rotate only inner clockwise
 
     
     private void rotate(){
