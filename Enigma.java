@@ -21,6 +21,12 @@ public class Enigma{
 
     public String decrypt(String message){        
         //TODO
+        String inner = rotorInit[0];
+        String middle = rotorInit[1];
+        String out = rotorInit[2];
+
+        
+
         // rotate inner counterclockwise
         // find the letter in the outer line
         // align with middle
@@ -34,14 +40,23 @@ public class Enigma{
     
     public String encrypt(String message){
         //TODO
+        String inner = rotorInit[0];
+        String middle = rotorInit[1];
+        String out = rotorInit[2];
+        String newMessage = "";
+        for(int i = 0; i<inner.length();i++){
+            if(message.charAt(0) == inner.charAt(i)){
+                char find = out.charAt(i);
+                for(int j = 0; j<middle.length();j++){
+                    if(find == middle.charAt(j)){
+                        char findOut = out.charAt(j);
+                        newMessage += out.charAt(j);
+                    }
+                }
+            }
 
-        // find letter in inner rotor
-        // align with outer rotor
-        // find OR cool w middle rotor
-        // align with outer rotor
-        // encrypted letter
-        // rotate only inner clockwise
-
+        }
+        rotate();
     
     private void rotate(){
         if(rotors[0].rotate()){
