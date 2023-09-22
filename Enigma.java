@@ -15,63 +15,52 @@ public class Enigma{
         rotors[0] = new Rotor(rotorInit[id1-1], start.charAt(0));
         rotors[1] = new Rotor(rotorInit[id2-1], start.charAt(1));
         rotors[2] = new Rotor(rotorInit[id3-1], start.charAt(2));
-        
     }
-
 
     public String decrypt(String message){        
         //TODO
-        String inner = rotorInit[0];
-        String middle = rotorInit[1];
-        String out = rotorInit[2];
-
-        String secretMessage = " ";
-        for(int i = 0; i<out.length(); i++){
-            if(message.charAt(0) == out.charAt(i)){
-                char find = middle.charAt(i);
-                for(int j = 0; j<out.length(); j++){
-                    if(find == out.charAt(j)){
-                        char findOut = inner.charAt(j);
-                        secretMessage += findOut;
-                        rotate(); //counterclockwise?
-                        break;
-                    }
-                }
-            }
+        String secretMessage = "";
+      //  int count = 0;
+        //run a for loop that does each character in the message 
+        for(int i = 0; i<message.length(); i++){
+          //  int outIndex = rotors[2].indexOf(message.charAt(i));
+         //   char middle = rotors[2].charAt(outIndex);
+            char character = decryptLetter(message.charAt(i)); 
+          //  count++;
+            secretMessage += character; 
         }
-
-        // rotate inner counterclockwise
-        // find the letter in the outer line
-        // align with middle
-        // find with outer again
-        // align with inner
-        //for look length = lenght of string 
-
-     //   return secretMessage;
+        return secretMessage;
     }
+
+    private char decryptLetter(char letter){
+        int index = rotors[2].indexOf(letter);
+        char out = rotors[1].charAt(index);
+        int midindex = rotors[2].indexOf(out);
+        char outAgain = rotors[0].charAt(midindex);
+        rotate();
+        return outAgain;
+    }
+
     
     public String encrypt(String message){
         //TODO
-        String inner = rotorInit[0];
-        String middle = rotorInit[1];
-        String out = rotorInit[2];
-        String secretMessage = " ";
+        // sets the rotors to specifc strings to read better
+        // creates a secret message to return
+        String secretMessage = "";
+    //    int count = 0;
 
-        for(int i = 0; i<inner.length();i++){
-            if(message.charAt(0) == inner.charAt(i)){
-                char find = out.charAt(i);
-                for(int j = 0; j<middle.length();j++){
-                    if(find == middle.charAt(j)){
-                        char findOut = out.charAt(j);
-                        secretMessage += out.charAt(j);
-                        rotate();
-                        break;
-                    }
-                }
-            }
-
+        //iterates through message
+        for(int i = 0; i<message.length(); i++){
+            int index = rotors[0].indexOf(message.charAt(i));
+            // calls encryptLetter constructor
+         //   char in = rotors[0].charAt(index);
+            char character = encryptLetter(message.charAt(i)); 
+       //     rotate();
+            secretMessage += character; 
         }
-    
+        return secretMessage;
+    }
+
     private void rotate(){
         if(rotors[0].rotate()){
             if(rotors[1].rotate()){
@@ -79,7 +68,17 @@ public class Enigma{
             }
         }
     }
-//    return secretMessage;
+
+    private char encryptLetter(char letter){
+        int index = rotors[0].indexOf(letter);
+        char out = rotors[2].charAt(index);
+        int midindex = rotors[1].indexOf(out);
+        char outAgain = rotors[2].charAt(midindex);        
+        rotate();
+        return outAgain;
+    }
+
+    
 }
 
 
